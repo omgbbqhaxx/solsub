@@ -33,8 +33,12 @@ Windows          | [![AppVeyor](https://img.shields.io/badge/build-passing-brigh
 ## Available Scripts
 
 In the project directory, you can run:
-before npm start go to here ----> node_modules/react-scripts/config/webpack.config.js
+1-) before npm start go to here ----> node_modules/react-scripts/config/webpack.config.js
 and change this webpack as -> https://gist.githubusercontent.com/omgbbqhaxx/0e14b3aa9ab3048333ea43acab84350f/raw/8c054767847d21be9db9fe9ec5a383085aeae25c/webpack.config.js
+
+2-) Export idl.json put this file in src file.
+
+3- Export program id and change programid from app.js
 
 
 ### `npm start`

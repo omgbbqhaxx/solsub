@@ -34,6 +34,7 @@ const opts = {
   preflightCommitment: "processed"
 }
 var renew = false;
+var mytime;
 const programID = new PublicKey("9abegPWEJVgaJ5kmNiDCfh93iMCovugQY4ToznvXDkWV");
 const CLOCK_PROGRAM_ID = new PublicKey('SysvarC1ock11111111111111111111111111111111');
 function App() {
@@ -102,12 +103,11 @@ const renderer = ({ total, days, hours, minutes, seconds, completed }) => {
 
 
    
-  async function predict() {
+  async function subnow() {
         const provider = await getProvider();
         /* create the program interface combining the idl, program ID, and provider */
         const program = new Program(idl, programID, provider);
         const pubKey = await provider.publicKey;
-        const x = await provider.publicKey;
         
         var [myacc] = await web3.PublicKey.findProgramAddressSync([Buffer.from("solsub"), provider.wallet.publicKey.toBuffer()], programID);
         console.log("myaccjj" + myacc);
@@ -117,9 +117,10 @@ const renderer = ({ total, days, hours, minutes, seconds, completed }) => {
         try {
           /* interact with the program via rpc */
           var j = await program.account.subdetalis.fetch(myacc);
+          //var v2 = await program.account.subdetalis.all();
          
           console.log("i will update - >   " + j.subtime);
-
+          mytime = j.subtime;
           setButtonText('Renew');
           renew = true;
         } catch (err) {
@@ -136,11 +137,11 @@ const renderer = ({ total, days, hours, minutes, seconds, completed }) => {
  
             const tx = await program.rpc.subscribe(cprice, {
               accounts: {
-               buyer: myacc,
+                buyer: myacc,
                 receiver: new PublicKey('HdwzqmZbNVanLU56sKmgwdWjgZReHf9ESuD7GfGUkErc'),
                 user: provider.wallet.publicKey,
                 systemProgram: SystemProgram.programId,
-                clock: new PublicKey('SysvarC1ock11111111111111111111111111111111'),
+                clock: CLOCK_PROGRAM_ID,
               },
             });
 
@@ -191,7 +192,7 @@ const renderer = ({ total, days, hours, minutes, seconds, completed }) => {
 
 
 
-          } else {setButtonText('Subscrib3')}
+          } else {setButtonText('Subscribe')}
 
          
         }
@@ -218,8 +219,8 @@ const renderer = ({ total, days, hours, minutes, seconds, completed }) => {
           )
         } else {
 
-          console.log('im here for call predict');
-          predict();
+          console.log('im here for call subnow');
+          subnow();
 
           return (
             <div className="App">
@@ -227,20 +228,28 @@ const renderer = ({ total, days, hours, minutes, seconds, completed }) => {
               { <center> <img className="App-logo" src={logo} /> </center> }
                 {<h2> Subs with the address below </h2>}
                 {<h2> {walletKey}</h2>}
-                <Button variant="outline-secondary" className="subbtn" onClick={predict}>{buttonText}</Button>
+                <Button variant="outline-secondary" className="subbtn" onClick={subnow}>{buttonText}</Button>
                 <Button variant="outline-secondary" className="" onClick={logout}>logout</Button>
                 <br></br>
 
 
 
                 <Countdown
-                    date={1681832052000 + 259200000}
+                    date={mytime*1000 + 259200000}
                     renderer={renderer}
                   />
 
                   {renew ? (
+
+                    //premium users will show here
                     <h1>This is a premium content</h1>
+
+
+
+
                     ) : (
+
+                      
                     <h1>Nothing seen here, You need subscribe first!</h1>
                   )}
 
