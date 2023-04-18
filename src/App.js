@@ -41,6 +41,7 @@ function App() {
   const wallet = useWallet()
   const [walletKey, setWalletKey] = useState(null);
   const [buttonText, setButtonText] = useState('Subscribe');
+  const [functionCompleted, setFunctionCompleted] = useState(false);
 
 
 
@@ -85,20 +86,19 @@ function App() {
   }
 
 
-// Random component
-const Completionist = () => <span>You are good to go!</span>;
-
-// Renderer callback with condition
-const renderer = ({ total, days, hours, minutes, seconds, completed }) => {
-  if (completed) {
-    // Render a completed state
-    return <Completionist />;
-  } else {
-    // Render a countdown
-    return <span> Youre premium until : {days}:{hours}:{minutes}:{seconds}</span>;
-  }
-};
- 
+  const renderer = ({ days, hours, minutes, seconds, completed }) => {
+    if (completed) {
+      // Render a completed state
+      return <span>Time's up!</span>;
+    } else {
+      // Render a countdown
+      return (
+        <span>
+          {days} days, {hours} hours, {minutes} minutes, {seconds} seconds
+        </span>
+      );
+    }
+  };
 
 
 
@@ -119,8 +119,13 @@ const renderer = ({ total, days, hours, minutes, seconds, completed }) => {
           var j = await program.account.subdetalis.fetch(myacc);
           //var v2 = await program.account.subdetalis.all();
          
-          console.log("i will update - >   " + j.subtime);
-          mytime = j.subtime;
+          
+          mytime = parseInt(j.subtime*1000);
+
+          console.log("i will update - >   " + mytime);
+
+
+          setFunctionCompleted(true);
           setButtonText('Renew');
           renew = true;
         } catch (err) {
@@ -221,7 +226,7 @@ const renderer = ({ total, days, hours, minutes, seconds, completed }) => {
 
           console.log('im here for call subnow');
           subnow();
-
+          console.log("my time" + mytime);
           return (
             <div className="App">
               <div>
@@ -233,11 +238,10 @@ const renderer = ({ total, days, hours, minutes, seconds, completed }) => {
                 <br></br>
 
 
-
-                <Countdown
-                    date={mytime*1000 + 259200000}
-                    renderer={renderer}
-                  />
+                
+               
+                 
+                  {functionCompleted && <Countdown date={mytime + 259200000 } renderer={renderer} />}
 
                   {renew ? (
 
@@ -249,7 +253,7 @@ const renderer = ({ total, days, hours, minutes, seconds, completed }) => {
 
                     ) : (
 
-                      
+
                     <h1>Nothing seen here, You need subscribe first!</h1>
                   )}
 
