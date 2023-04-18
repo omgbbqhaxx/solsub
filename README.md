@@ -33,6 +33,9 @@ Windows          | [![AppVeyor](https://img.shields.io/badge/build-passing-brigh
 ## Available Scripts
 
 In the project directory, you can run:
+before npm start go to here ----> node_modules/react-scripts/config/webpack.config.js
+and change this webpack as -> https://gist.githubusercontent.com/omgbbqhaxx/0e14b3aa9ab3048333ea43acab84350f/raw/8c054767847d21be9db9fe9ec5a383085aeae25c/webpack.config.js
+
 
 ### `npm start`
 
