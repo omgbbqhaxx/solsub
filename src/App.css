@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Londrina+Solid:wght@100;400;900&display=swap');
 .App {
   text-align: center;
 }
@@ -7,10 +8,39 @@
   pointer-events: none;
 }
 
+ 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
+}
+.subbtn {
+  width:200px;
+  padding: 10px;
+  margin: 20px;
+  font-size: 20px ;
+  font-family: 'Londrina Solid', cursive;
+  color:aqua;
+}
+#swtab {
+  font-size:35px;
+  font-family: 'Londrina Solid', cursive;
+}
+
+#sswtab {
+  font-size:18px;
+  font-family: 'Londrina Solid', cursive;
+}
+
+.mycontentt {
+  font-size:40px;
+  font-family: 'Londrina Solid', cursive;
+}
+
+#mycontttasd {
+  font-size:10px;
+  font-family: 'Londrina Solid', cursive;
+  color: #353535;
 }
 
 .App-header {

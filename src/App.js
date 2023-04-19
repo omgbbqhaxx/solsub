@@ -93,7 +93,7 @@ function App() {
     } else {
       // Render a countdown
       return (
-        <span>
+        <span id="mycontttasd">
           {days} days, {hours} hours, {minutes} minutes, {seconds} seconds
         </span>
       );
@@ -235,33 +235,32 @@ function App() {
             <div className="App">
               <div>
               { <center> <img className="App-logo" src={logo} /> </center> }
-                {<h2> Subs with the address below </h2>}
-                {<h2> {walletKey}</h2>}
+                {<h2 id="swtab"> Subs with the address below </h2>}
+                {<h2 id="sswtab"> {walletKey}</h2>}
                 <Button variant="outline-secondary" className="subbtn" onClick={subnow}>{buttonText}</Button>
-                <Button variant="outline-secondary" className="" onClick={logout}>logout</Button>
+                <Button variant="outline-secondary" className="subbtn" onClick={logout}>logout</Button>
                 <br></br>
 
 
                 
                
                  
-                  {functionCompleted && <Countdown date={mytime + 259200000 } renderer={renderer} />}
+                 
 
                   {renew ? (
-
                     //premium users will show here
-                    <h1>This is a premium content</h1>
-
-
-
-
+                    <h1 class="mycontentt">This is a premium content</h1>
                     ) : (
-
-
-                    <h1>Nothing seen here, You need subscribe first!</h1>
+                    <h1 class="mycontentt">Nothing seen here, You need subscribe first!</h1>
                   )}
 
 
+
+             {functionCompleted && <Countdown  date={mytime + 259200000 } renderer={renderer} />}
+
+
+
+                   
                
 
 
