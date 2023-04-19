@@ -128,6 +128,38 @@ function App() {
           setFunctionCompleted(true);
           setButtonText('Renew');
           renew = true;
+          if(j.subtime*1000 + 1000000000 < Date.now()) {
+            renew = false;
+          console.log("come here xx!");
+            setButtonText('Renew');
+            try {
+              const program = new Program(idl, programID, provider);
+              const cprice = new BN(1000000000);
+              console.log("initalization progreess has been started.");
+   
+              const tx = await program.rpc.renew(cprice, {
+                accounts: {
+                 buyer: myacc,
+                  receiver: new PublicKey('HdwzqmZbNVanLU56sKmgwdWjgZReHf9ESuD7GfGUkErc'),
+                  user: provider.wallet.publicKey,
+                  systemProgram: SystemProgram.programId,
+                  clock: new PublicKey('SysvarC1ock11111111111111111111111111111111'),
+                },
+              });
+
+               console.log("txx", tx);
+               let mylink = "https://solana.fm/tx/"+tx; 
+               toast(({ closeToast }) => <div> Your message has been send <a target="_blank" href={mylink}>check from solana.fm 😎</a></div>);
+  
+  
+  
+            } catch (err) {
+              console.log("Transaction error: ", err);
+            }
+          }
+
+
+
         } catch (err) {
 
           console.log("j" + j);
@@ -165,39 +197,11 @@ function App() {
 
 
 
-          if(renew) {
-
-            setButtonText('Renew');
-            try {
-              const program = new Program(idl, programID, provider);
-              const cprice = new BN(1000000000);
-              console.log("initalization progreess has been started.");
-   
-              const tx = await program.rpc.renew(cprice, {
-                accounts: {
-                 buyer: myacc,
-                  receiver: new PublicKey('HdwzqmZbNVanLU56sKmgwdWjgZReHf9ESuD7GfGUkErc'),
-                  user: provider.wallet.publicKey,
-                  systemProgram: SystemProgram.programId,
-                  clock: new PublicKey('SysvarC1ock11111111111111111111111111111111'),
-                },
-              });
-  
-  
-  
-               console.log("txx", tx);
-               let mylink = "https://solana.fm/tx/"+tx; 
-               toast(({ closeToast }) => <div> Your message has been send <a target="_blank" href={mylink}>check from solana.fm 😎</a></div>);
-  
-  
-  
-            } catch (err) {
-              console.log("Transaction error: ", err);
-            }
+     
+            
 
 
-
-          } else {setButtonText('Subscribe')}
+        
 
          
         }
